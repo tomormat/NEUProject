@@ -41,3 +41,61 @@ VALUES (%s, %s, %s, %s, %s)
 
 conn.commit()
 print("✔ Inserted records.")
+
+
+
+-------------------------------------------
+cursor.execute("""
+UPDATE Passwords SET Notes = %s, ModificationDate = %s WHERE ID = (
+    SELECT ID FROM (SELECT ID FROM Passwords ORDER BY ID ASC LIMIT 1) AS temp
+)
+""", ("Updated via script", now))
+
+cursor.execute("""
+UPDATE Certificates SET Notes = %s, ModificationDate = %s WHERE ID = (
+    SELECT ID FROM (SELECT ID FROM Certificates ORDER BY ID ASC LIMIT 1) AS temp
+)
+""", ("Updated via script", now))
+
+conn.commit()
+------------------------------------------
+print("\n Soft deleting one record from each table (sets DeletedDate)...")
+
+cursor.execute("""
+UPDATE Passwords SET DeletedDate = %s WHERE ID = (
+    SELECT ID FROM (SELECT ID FROM Passwords ORDER BY ID DESC LIMIT 1) AS temp
+)
+""", (now,))
+
+cursor.execute("""
+UPDATE Certificates SET DeletedDate = %s WHERE ID = (
+    SELECT ID FROM (SELECT ID FROM Certificates ORDER BY ID DESC LIMIT 1) AS temp
+)
+""", (now,))
+
+conn.commit()
+
+-------------------------------------------
+
+print("\nPurging records older than 7 years...")
+
+seven_years_ago = (datetime.now() - timedelta(days=365*7)).strftime("%Y-%m-%d %H:%M:%S")
+
+# Purge from Passwords
+cursor.execute("""
+DELETE FROM Passwords WHERE DeletedDate IS NOT NULL AND DeletedDate < %s
+""", (seven_years_ago,))
+
+# Purge from Certificates
+cursor.execute("""
+DELETE FROM Certificates WHERE DeletedDate IS NOT NULL AND DeletedDate < %s
+""", (seven_years_ago,))
+
+deleted_count = cursor.rowcount
+conn.commit()
+print(f"✔ Purged records deleted (if older than 7 years). Total rows removed: {deleted_count}")
+
+# --- DONE ---
+cursor.close()
+conn.close()
+print("\nAll operations completed.")
