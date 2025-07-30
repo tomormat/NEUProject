@@ -26,24 +26,6 @@ VALUES (%s, %s, %s, %s, %s, %s, %s)
 
 
 
-(.venv2) PS C:\Users\Administrator\Documents\apiPython> & C:/Users/Administrator/Documents/apiPython/.venv2/Scripts/python.exe c:/Users/Administrator/Documents/apiPython/Lab/lab.py
-Traceback (most recent call last):
-  File "C:\Users\Administrator\Documents\apiPython\.venv2\Lib\site-packages\mysql\connector\connection_cext.py", line 772, in cmd_query
-    self._cmysql.query(
-    ~~~~~~~~~~~~~~~~~~^
-        query,
-        ^^^^^^
-    ...<3 lines>...
-        query_attrs=self.query_attrs,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-_mysql_connector.MySQLInterfaceError: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Notes TEXT,
-        DeletedDate DATETIME,
-        CreationDate DATETIME NOT NULL' at line 7
-
-The above exception was the direct cause of the following exception:
-
 Traceback (most recent call last):
   File "c:\Users\Administrator\Documents\apiPython\Lab\lab.py", line 27, in <module>
     cursor.execute("""
