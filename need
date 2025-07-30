@@ -25,35 +25,3 @@ VALUES (%s, %s, %s, %s, %s, %s, %s)
 """, certificates_data)
 
 
-
-Traceback (most recent call last):
-  File "c:\Users\Administrator\Documents\apiPython\Lab\lab.py", line 27, in <module>
-    cursor.execute("""
-    ~~~~~~~~~~~~~~^^^^
-        CREATE TABLE IF NOT EXISTS Passwords (
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<9 lines>...
-        )
-        ^
-                   """)
-                   ^^^^
-  File "C:\Users\Administrator\Documents\apiPython\.venv2\Lib\site-packages\mysql\connector\cursor_cext.py", line 353, in execute
-    self._connection.cmd_query(
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        self._stmt_partition["mappable_stmt"],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        raw_as_string=self._raw_as_string,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\Administrator\Documents\apiPython\.venv2\Lib\site-packages\mysql\connector\opentelemetry\context_propagation.py", line 97, in wrapper
-    return method(cnx, *args, **kwargs)
-  File "C:\Users\Administrator\Documents\apiPython\.venv2\Lib\site-packages\mysql\connector\connection_cext.py", line 781, in cmd_query
-    raise get_mysql_exception(
-        err.errno, msg=err.msg, sqlstate=err.sqlstate
-    ) from err
-mysql.connector.errors.ProgrammingError: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Notes TEXT,
-        DeletedDate DATETIME,
-        CreationDate DATETIME NOT NULL' at line 7
-(.venv2) PS C:\Users\Administrator\Documents\apiPython> 
