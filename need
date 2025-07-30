@@ -24,4 +24,20 @@ INSERT INTO Certificates (Name, ServerName, Certificate, Notes, DeletedDate, Cre
 VALUES (%s, %s, %s, %s, %s, %s, %s)
 """, certificates_data)
 
+============================================================================
+PART2
 
+1 record to each
+
+cursor.execute("""
+INSERT INTO Passwords (`Name`, `LoginID`, `Password`, `URL`, `Notes`, `CreationDate`)
+VALUES (%s, %s, %s, %s, %s, %s)
+""", ("Test Entry", "test_user", "test_pass", "http://test.com", "Insert test", now))
+
+cursor.execute("""
+INSERT INTO Certificates (`Name`, `ServerName`, `Certificate`, `Notes`, `CreationDate`)
+VALUES (%s, %s, %s, %s, %s)
+""", ("Test Cert", "test_server", "CERTDATA_TEST", "Insert test", now))
+
+conn.commit()
+print("✔ Inserted records.")
