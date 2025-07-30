@@ -1,0 +1,25 @@
+# Insert data into Passwords table
+passwords_data = [
+    ("Email Account", "user1@example.com", "password123", "https://mail.example.com", None, None, now(), None),
+    ("Bank Account", "bankuser", "securepass456", "https://bank.example.com", "Primary bank", None, now(), now()),
+    ("Social Media", "socialguy", "myp@ssword", None, None, None, now(), None),
+    ("Old Forum", "forumuser", "forum1234", "https://oldforum.com", "Rarely used", ten_years_ago(), now(), None)
+]
+
+cursor.executemany("""
+INSERT INTO Passwords (Name, LoginID, Password, URL, Notes, DeletedDate, CreationDate, ModificationDate)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+""", passwords_data)
+
+# Insert data into Certificates table
+certificates_data = [
+    ("Web Server Cert", "web01", "CERTDATA1", None, None, now(), None),
+    ("API Server Cert", "api01", "CERTDATA2", "Used for internal API", None, now(), now()),
+    ("Backup Server Cert", "backup01", "CERTDATA3", None, None, now(), None),
+    ("Legacy Server Cert", "legacy01", "CERTDATA4", None, ten_years_ago(), now(), None)
+]
+
+cursor.executemany("""
+INSERT INTO Certificates (Name, ServerName, Certificate, Notes, DeletedDate, CreationDate, ModificationDate)
+VALUES (%s, %s, %s, %s, %s, %s, %s)
+""", certificates_data)
